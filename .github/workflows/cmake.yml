@@ -240,6 +240,28 @@ jobs:
       - name: Runtime checks
         uses: ./.github/actions/runtime-checks
 
-      - name: Create release
+      - name: Prepare release asset
         uses: ./.github/actions/create-release
         if: startsWith(github.ref, 'refs/tags/')
+
+  release:
+    name: Release
+    needs: build
+    runs-on: ubuntu-22.04
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+    steps:
+      - name: Download release assets
+        # renovate: datasource=github-tags depName=actions/download-artifact versioning=loose
+        uses: actions/download-artifact@v4
+        with:
+          pattern: release-asset-*
+          merge-multiple: true
+          path: release-assets
+
+      - name: Create Release
+        # renovate: datasource=github-tags depName=softprops/action-gh-release versioning=loose
+        uses: softprops/action-gh-release@v2.5.1
+        with:
+          files: release-assets/*
