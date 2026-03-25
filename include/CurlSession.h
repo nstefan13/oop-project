@@ -1,6 +1,7 @@
 #pragma once
 
 #include <curl/curl.h>
+#include <cstring>
 #include <string>
 #include <ranges>
 #include <iostream>
@@ -9,7 +10,6 @@
 #include <optional>
 #include <functional>
 #include <memory>
-#include <iostream>
 #include "Utilities.h"
 #include "HTTPHeaders.h"
 
@@ -89,7 +89,7 @@ public:
 
     struct _user_data_write {
       HTTPResponse *response;
-    } user_data_write(&response), user_data_headers(&response);
+    } user_data_write{&response}, user_data_headers{&response};
 
     auto read_callback = [](char* buffer, size_t size, size_t nitems, void* user_data_ptr) -> size_t {
       _user_data_read* user_data = (_user_data_read*)user_data_ptr;
