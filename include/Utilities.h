@@ -5,6 +5,7 @@
 #include <cctype>
 #include <expected>
 #include <format>
+#include <algorithm>
 #include <iostream>
 
 std::string ltrim(std::string s) {

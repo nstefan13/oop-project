@@ -24,8 +24,8 @@ include(cmake/CopyHelper.cmake)
 # external dependencies with FetchContent
 include(FetchContent)
 
-# find_package(CURL QUIET)
-if(FALSE)
+find_package(CURL QUIET)
+if(CURL_FOUND)
     message(STATUS "Found system CURL: ${CURL_VERSION}")
 else()
     message(STATUS "Fetching CURL...")

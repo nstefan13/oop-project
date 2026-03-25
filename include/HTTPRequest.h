@@ -25,7 +25,7 @@ class HTTPRequest {
       this->method = matches[1];
       this->path = matches[2];
     } else {
-      throw std::runtime_error(std::format("HTTPRequest::parse_status_line invalid status line received: {}...", status_line.substr(0, std::min(status_line.size(), 63UL))));
+      throw std::runtime_error(std::format("HTTPRequest::parse_status_line invalid status line received: {}...", status_line.substr(0, std::min<size_t>(status_line.size(), 63UL))));
     }
   }
 
@@ -36,7 +36,7 @@ class HTTPRequest {
     if (std::regex_match(header_line, matches, pattern)) {
       this->headers.insert(matches[1], matches[2]);
     } else {
-      throw std::runtime_error(std::format("HTTPRequest::parse_header invalid header line received: {}...", header_line.substr(0, std::min(header_line.size(), 63UL))));
+      throw std::runtime_error(std::format("HTTPRequest::parse_header invalid header line received: {}...", header_line.substr(0, std::min<size_t>(header_line.size(), 63UL))));
     }
   }
 public:

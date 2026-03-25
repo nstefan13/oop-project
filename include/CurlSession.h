@@ -8,18 +8,10 @@
 #include <exception>
 #include <optional>
 #include <functional>
+#include <memory>
 #include <iostream>
 #include "Utilities.h"
 #include "HTTPHeaders.h"
-
-struct HTTPMethods {
-  // can't do "static const" because std::string is not a primitive
-  static constexpr const char* GET = "GET";
-  static constexpr const char* POST = "POST";
-  static constexpr const char* PUT = "PUT";
-  static constexpr const char* PATCH = "PATCH";
-  static constexpr const char* DELETE = "DELETE";
-};
 
 class HTTPResponse {
   // Only this class is allowed to create an HTTPResponse object
@@ -101,7 +93,7 @@ public:
 
     auto read_callback = [](char* buffer, size_t size, size_t nitems, void* user_data_ptr) -> size_t {
       _user_data_read* user_data = (_user_data_read*)user_data_ptr;
-      size_t ncopied = size * std::min(nitems, user_data->original_string->size() - user_data->position); // altough size is always 1, as stated in the docs
+      size_t ncopied = size * std::min<size_t>(nitems, user_data->original_string->size() - user_data->position); // altough size is always 1, as stated in the docs
       if (ncopied == 0) return 0;
 
       std::memcpy(buffer, user_data->original_string->data() + user_data->position, ncopied);

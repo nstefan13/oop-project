@@ -15,7 +15,7 @@ int main(void)
 
   std::cout << "Simple request to example.com:\n";
   auto session = CurlSession();
-  auto response = session.request(HTTPMethods::GET, "https://example.com", HTTPHeaders(), "").value();
+  auto response = session.request("GET", "https://example.com", HTTPHeaders(), "").value();
   std::cout << response << '\n';
   std::cout << response.get_body() << '\n';
 
