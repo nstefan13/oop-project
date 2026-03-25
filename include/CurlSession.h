@@ -185,6 +185,7 @@ public:
   explicit CurlSession(CURL* _handle) : handle{_handle} {}
 
   CurlSession() : handle{curl_easy_init()} {
+    curl_easy_setopt(handle, CURLOPT_TIMEOUT, 20L); // Set a timeout of 20 seconds to prevent hanging
     curl_easy_setopt(handle, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
   }
 
