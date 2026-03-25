@@ -14,7 +14,7 @@ class HTTPHeaders {
   mutable curl_slist* data;
   mutable int data_version;
 
-  std::string normalize(const std::string& header_name) const {
+  static std::string normalize(const std::string& header_name) {
     return tolower(header_name);
   }
 
@@ -38,7 +38,7 @@ public:
     return data;
   }
 
-  const std::unordered_map<std::string, std::string> get_map() const { return headers; }
+  const std::unordered_map<std::string, std::string>& get_map() const { return headers; }
 
   void insert(const std::string& name, const std::string& value) {
     this->headers_version++;

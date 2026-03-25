@@ -25,7 +25,7 @@ class HTTPResponse {
 
   void sync_with_raw_body() const {
     if (raw_body.size() != body.size()) {
-      body = std::string((const char*)raw_body.data(), raw_body.size());
+      body = std::string(reinterpret_cast<const char*>(raw_body.data()), raw_body.size());
     }
   }
 
@@ -92,7 +92,7 @@ public:
     } user_data_write{&response}, user_data_headers{&response};
 
     auto read_callback = [](char* buffer, size_t size, size_t nitems, void* user_data_ptr) -> size_t {
-      _user_data_read* user_data = (_user_data_read*)user_data_ptr;
+      _user_data_read* user_data = static_cast<_user_data_read*>(user_data_ptr);
       size_t ncopied = size * std::min<size_t>(nitems, user_data->original_string->size() - user_data->position); // altough size is always 1, as stated in the docs
       if (ncopied == 0) return 0;
 
@@ -103,19 +103,19 @@ public:
     };
 
     auto write_callback = [](char* buffer, size_t size, size_t nitems, void* user_data_ptr) -> size_t {
-      _user_data_write *user_data = (_user_data_write*)user_data_ptr;
+      _user_data_write *user_data = static_cast<_user_data_write*>(user_data_ptr);
       for (size_t i = 0; i < nitems; i++) {
-        user_data->response->raw_body.push_back(*(std::byte*)(buffer + i * size));
+        user_data->response->raw_body.push_back(*reinterpret_cast<std::byte*>(buffer + i * size));
       }
       return nitems;
     };
 
     auto write_headers_callback = [](char *buffer, size_t size, size_t nitems, void *userdata) -> size_t {
-      _user_data_write *user_data = (_user_data_write*)userdata;
+      _user_data_write *user_data = static_cast<_user_data_write*>(userdata);
       
       std::string header_line = "";
       for (size_t i = 0; i < nitems; i++)
-        header_line += *(char*)(buffer + size * i);
+        header_line += *(buffer + size * i);
 
       size_t pos = header_line.find(':');
       if (pos == std::string_view::npos) {

@@ -2,7 +2,6 @@
 #include <string>
 #include <curl/curl.h>
 #include <Utilities.h>
-#include "include/Example.h"
 #include "include/HTTPRequest.h"
 #include "include/CurlSession.h"
 
