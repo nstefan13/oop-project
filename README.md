@@ -28,21 +28,103 @@ O cerință nu se consideră îndeplinită dacă este realizată doar prin cod g
 ## Tema 1
 
 #### Cerințe
-- [ ] definirea a minim **3-4 clase** folosind compunere cu clasele definite de voi; moștenirile nu se iau în considerare aici
-- [ ] constructori de inițializare cu parametri pentru fiecare clasă
-- [ ] pentru o aceeași (singură) clasă: constructor de copiere, `operator=` de copiere, destructor
-<!-- - [ ] pentru o altă clasă: constructor de mutare, `operator=` de mutare, destructor -->
-<!-- - [ ] pentru o altă clasă: toate cele 5 funcții membru speciale -->
-- [ ] `operator<<` pentru **toate** clasele pentru afișare (`std::ostream`) folosind compunere de apeluri cu `operator<<`
-- [ ] cât mai multe `const` (unde este cazul) și funcții `private`
-- [ ] implementarea a minim 3 funcții membru publice pentru funcționalități netriviale specifice temei alese, dintre care cel puțin 1-2 funcții mai complexe
+<sumarry>
+
+- [X] definirea a minim **3-4 clase** folosind compunere cu clasele definite de voi; moștenirile nu se iau în considerare aici
+</sumarry>
+<details>
+
+[CurlSession](./include/CurlSession.h#L50)
+
+[HTTPHeaders](./include/HTTPHeaders.h#L9)
+
+[HTTPRequest](./include/HTTPRequest.h#L14) - has { [HTTPHeaders](./include/HTTPHeaders.h#L9) }, 
+
+[HTTPResponse](./include/CurlSession.h#L23) - has { [HTTPHeaders](./include/HTTPHeaders.h#L9) }
+</details>
+
+- [X] constructori de inițializare cu parametri pentru fiecare clasă
+
+[HTTPRequest](./include/HTTPRequest.h#L44)
+
+[HTTPResponse](./include/CurlSession.h#L40)
+
+[HTTPHeaders](./include/HTTPHeaders.h#L64)
+
+[CurlSession](./include/CurlSession.h#L191)
+
+
+- [X] pentru o aceeași (singură) clasă: constructor de copiere, `operator=` de copiere, destructor
+<details>
+
+Constructor de copiere [HTTPHeaders](./include/HTTPHeaders.h#L69)
+
+Constructor de mutare [HTTPHeaders](./include/HTTPHeaders.h#L75)
+
+Operator = de copiere [HTTPHeaders](./include/HTTPHeaders.h#L83)
+
+Operator = de mutare [HTTPHeaders](./include/HTTPHeaders.h#L99)
+
+Destructor [HTTPHeaders](./include/HTTPHeaders.h#L112)
+
+</details>
+
+- [X] `operator<<` pentru **toate** clasele pentru afișare (`std::ostream`) folosind compunere de apeluri cu `operator<<`
+
+<details>
+
+- [HTTPResponse](./include/CurlSession.h#L50)
+
+- [HTTPRequest](./include/HTTPRequest.h#L91)
+
+- [HTTPHeaders](./include/HTTPHeaders.h#L124)
+
+- [CurlSession](./include/CurlSession.h#L201)
+
+</details>
+
+
+- [X] cât mai multe `const` (unde este cazul) și funcții `private`
+
+<details>
+
+~40 const
+
+[HTTPHeaders::format_header](./include/HTTPHeaders.h#L16)
+
+[HTTPResponse::sync_with_raw_body](./include/CurlSession.h#L33)
+
+[HTTPRequest::normalize](./include/HTTPRequest.h#L16)
+
+[HTTPRequest::parse_status_line](./include/HTTPRequest.h#L20)
+
+[HTTPRequest::parse_header](./include/HTTPRequest.h#L32)
+
+[CurlSession::getinfo_wrapper_last_url](./include/CurlSession.h#L58)
+
+</details>
+
+- [X] implementarea a minim 3 funcții membru publice pentru funcționalități netriviale specifice temei alese, dintre care cel puțin 1-2 funcții mai complexe
   - nu doar citiri/afișări sau adăugat/șters elemente într-un/dintr-un vector
+
+<details>
+
+Cam tot ce e aici e complex, dar uite:
+
+[CurlSession::request](./include/CurlSession.h#L88) <- Cea mai complexa
+
+[HTTPRequest::perform](./include/HTTPRequest.h#L78)
+
+[HTTPHeaders::get_data](./include/HTTPHeaders.h#L27)
+
+</details>
+
 - [ ] scenariu de utilizare **cu sens** a claselor definite:
   - crearea de obiecte și apelarea tuturor funcțiilor membru publice în main
   - vor fi adăugate în fișierul `tastatura.txt` DOAR exemple de date de intrare de la tastatură (dacă există); dacă aveți nevoie de date din fișiere, creați alte fișiere separat
-- [ ] minim 52-60% din codul propriu să fie C++, `.gitattributes` configurat corect
+- [X] minim 52-60% din codul propriu să fie C++, `.gitattributes` configurat corect
 - [ ] tag de `git`: de exemplu `v0.1`
-- [ ] serviciu de integrare continuă (CI) cu **toate bifele**; exemplu: GitHub Actions
+- [X] serviciu de integrare continuă (CI) cu **toate bifele**; exemplu: GitHub Actions
 - [ ] code review #1 2 proiecte
 
 ## Tema 2

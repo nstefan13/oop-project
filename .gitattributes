@@ -1,1 +1,16 @@
 ext/** linguist-vendored
+
+*.h linguist-language=C++
+
+CMakeLists.txt linguist-detectable=false
+*.cmake linguist-detectable=false
+cmake/** linguist-detectable=false
+
+# scripts/** linguist-detectable=false
+# *.sh linguist-detectable=false
+# launcher.command linguist-detectable=false
+
+build/** linguist-generated
+CMakeFiles/** linguist-generated
+CMakeCache.txt linguist-generated
+Makefile linguist-generated
