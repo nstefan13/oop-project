@@ -110,7 +110,7 @@ public:
       return nitems;
     };
 
-    auto write_headers_callback = [](char *buffer, size_t size, size_t nitems, void *userdata) -> size_t {
+    auto write_headers_callback = [](const char *buffer, size_t size, size_t nitems, void *userdata) -> size_t {
       _user_data_write *user_data = static_cast<_user_data_write*>(userdata);
       
       std::string header_line = "";
