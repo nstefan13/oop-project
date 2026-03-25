@@ -63,9 +63,9 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
-      CC: clang-18
-      CXX: clang++-18
-      CLANG_VER: 18
+      CC: clang-19
+      CXX: clang++-19
+      CLANG_VER: 19
     steps:
       - name: Checkout repo
         # renovate: datasource=github-tags depName=actions/checkout versioning=loose
@@ -105,18 +105,18 @@ jobs:
         include:
             # renovate: depName=ubuntu
           - os: ubuntu-24.04
-            c: clang-18
-            cxx: clang++-18
+            c: clang-19
+            cxx: clang++-19
             # renovate: depName=ubuntu
-            name: "Ubuntu 24.04 Clang 18"
+            name: "Ubuntu 24.04 Clang 19"
             cmake_generator: Ninja
 
             # renovate: depName=ubuntu
           - os: ubuntu-24.04
-            c: gcc-13
-            cxx: g++-13
+            c: gcc-14
+            cxx: g++-14
             # renovate: depName=ubuntu
-            name: "ASan: Ubuntu 24.04 GCC 13"
+            name: "ASan: Ubuntu 24.04 GCC 14"
             cmake_flags: "-DUSE_ASAN=ON -DBUILD_SHARED_LIBS=OFF"
             cmake_generator: Ninja
             # This env runs address sanitizers
@@ -126,10 +126,10 @@ jobs:
 
             # renovate: depName=ubuntu
           - os: ubuntu-24.04
-            c: gcc-13
-            cxx: g++-13
+            c: gcc-14
+            cxx: g++-14
             # renovate: depName=ubuntu
-            name: "Valgrind: Ubuntu 24.04 GCC 13"
+            name: "Valgrind: Ubuntu 24.04 GCC 14"
             cmake_flags: "-DBUILD_SHARED_LIBS=OFF"
             cmake_generator: Ninja
             # This env runs valgrind

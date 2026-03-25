@@ -72,10 +72,10 @@ public:
     }
   }
 
-  std::string& get_method() { return method; }
-  std::string& get_path() { return path; }
-  HTTPHeaders& get_headers() { return headers; }
-  std::string& get_body() { return body; }
+  [[maybe_unused]] std::string& get_method() { return method; }
+  [[maybe_unused]] std::string& get_path() { return path; }
+  [[maybe_unused]] HTTPHeaders& get_headers() { return headers; }
+  [[maybe_unused]] std::string& get_body() { return body; }
 
   std::expected<HTTPResponse, int> perform() const {
     if (this->headers["Host"].size()) {

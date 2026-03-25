@@ -18,7 +18,7 @@ class HTTPHeaders {
     return tolower(header_name);
   }
 
-  std::string format_header(const std::string& name, const std::string& value) const {
+  static std::string format_header(const std::string& name, const std::string& value) {
     if (!value.size()) return name + ";";
     else return std::format("{}: {}", normalize(name), value);
   }

@@ -8,6 +8,10 @@ runs:
       shell: bash
       run: |
         sudo apt-get update
+        sudo apt-get install -y software-properties-common wget
+        wget https://apt.llvm.org/llvm.sh
+        chmod +x llvm.sh
+        sudo ./llvm.sh ${{ env.CLANG_VER }}
         sudo apt-get install --no-install-recommends clang-tidy-${{ env.CLANG_VER }} libc++-${{ env.CLANG_VER }}-dev libc++abi-${{ env.CLANG_VER }}-dev ninja-build
 
     - name: Configure CMake

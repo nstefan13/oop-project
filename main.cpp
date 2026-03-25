@@ -12,19 +12,23 @@ int main(void)
   // payload-uri care ar putea duce la un data leak. Cum oricum trebuie sa construiesc un request,
   // mai degraba las utilizatorul sa-mi dea unul care merge decat sa fac-l fac de la 0.
 
-  std::cout << "Simple request to example.com:\n";
-  auto session = CurlSession();
-  auto response = session.request("GET", "https://example.com", HTTPHeaders(), "").value();
-  std::cout << response << '\n';
-  std::cout << response.get_body() << '\n';
-
-  std::cout << "\nProcessing request from std::cin\n";
-  auto request = HTTPRequest(std::cin);
-  auto result = request.perform();
-  if (result) {
-    std::cout << result.value() << "\n";
-    std::cout << result.value().get_body() << "\n";
-  } else {
-    std::cout << "Error while sending the request: " << result << "\n";
+  try {
+    std::cout << "Simple request to example.com:\n";
+    auto session = CurlSession();
+    auto response = session.request("GET", "https://example.com", HTTPHeaders(), "").value();
+    std::cout << response << '\n';
+    std::cout << response.get_body() << '\n';
+  
+    std::cout << "\nProcessing request from std::cin\n";
+    auto request = HTTPRequest(std::cin);
+    auto result = request.perform();
+    if (result) {
+      std::cout << result.value() << "\n";
+      std::cout << result.value().get_body() << "\n";
+    } else {
+      std::cout << "Error while sending the request: " << result << "\n";
+    }
+  } catch(...) {
+    std::cerr << "Something went wrong";
   }
 }
