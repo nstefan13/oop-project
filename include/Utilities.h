@@ -12,6 +12,8 @@ std::string trim(const std::string& s);
 
 std::string tolower(const std::string& s);
 
+std::string readEverything(const std::istream& is);
+
 template<typename Res, typename Err>
 std::ostream& operator<<(std::ostream& os, const std::expected<Res, Err>& expect) {
   if (!expect.has_value()) {

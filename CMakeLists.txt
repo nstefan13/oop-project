@@ -49,6 +49,21 @@ else()
     endif()
 endif()
 
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz)
+FetchContent_MakeAvailable(json)
+
+FetchContent_Declare(
+    inja
+    GIT_REPOSITORY https://github.com/pantor/inja.git
+    GIT_TAG        v3.5.0
+    GIT_SHALLOW    TRUE
+    GIT_PROGRESS   TRUE
+)
+FetchContent_GetProperties(inja)
+if(NOT inja_POPULATED)
+    FetchContent_Populate(inja)
+endif()
+
 ###############################################################################
 
 # external dependencies with find_package
@@ -87,6 +102,8 @@ target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE
     ext
 )
 target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE CURL::libcurl)
+target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE nlohmann_json::nlohmann_json)
+target_include_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${inja_SOURCE_DIR}/include)
 # target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE ${<SomeLib>_SOURCE_DIR}/include)
 # target_link_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
 # target_link_libraries(${MAIN_EXECUTABLE_NAME} <SomeLib>)

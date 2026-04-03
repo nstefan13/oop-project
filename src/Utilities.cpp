@@ -1,8 +1,7 @@
-#pragma once
-
 #include "Utilities.h"
 
 #include <string>
+#include <sstream>
 #include <ranges>
 #include <cctype>
 #include <expected>
@@ -22,6 +21,12 @@ std::string rtrim(std::string s) {
 
 std::string trim(const std::string& s) {
   return ltrim(rtrim(s));
+}
+
+std::string readEverything(const std::istream& is) {
+  std::ostringstream oss;
+  oss << is.rdbuf();
+  return oss.str();
 }
 
 std::string tolower(const std::string& s) {
