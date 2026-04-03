@@ -34,38 +34,38 @@ O cerință nu se consideră îndeplinită dacă este realizată doar prin cod g
 </sumarry>
 <details>
 
-[CurlSession](./include/CurlSession.h#L57)
+[CurlSession](./include/CurlSession.h#L17)
 
 [HTTPHeaders](./include/HTTPHeaders.h#L10)
 
-[HTTPRequest](./include/HTTPRequest.h#L14) - has { [HTTPHeaders](./include/HTTPHeaders.h#L10) }, 
+[HTTPRequest](./include/HTTPRequest.h#L9) - has { [HTTPHeaders](./include/HTTPHeaders.h#L10) }, 
 
-[HTTPResponse](./include/CurlSession.h#L16) - has { [HTTPHeaders](./include/HTTPHeaders.h#L10) }
+[HTTPResponse](./include/HTTPResponse.h#L7) - has { [HTTPHeaders](./include/HTTPHeaders.h#L10) }
 </details>
 
 - [X] constructori de inițializare cu parametri pentru fiecare clasă
 
-[HTTPRequest](./include/HTTPRequest.h#L44)
+[HTTPRequest](./src/HTTPRequest.cpp#L35)
 
-[HTTPResponse](./include/CurlSession.h#L33)
+[HTTPResponse](./src/HTTPResponse.cpp#L10)
 
-[HTTPHeaders](./include/HTTPHeaders.h#L64)
+[HTTPHeaders](./src/HTTPHeaders.cpp#L57)
 
-[CurlSession](./include/CurlSession.h#L185)
+[CurlSession](./include/CurlSession.h#L30)
 
 
 - [X] pentru o aceeași (singură) clasă: constructor de copiere, `operator=` de copiere, destructor
 <details>
 
-Constructor de copiere [HTTPHeaders](./include/HTTPHeaders.h#L74)
+Constructor de copiere [HTTPHeaders](./src/HTTPHeaders.cpp#L67)
 
-Constructor de mutare [HTTPHeaders](./include/HTTPHeaders.h#L80)
+Constructor de mutare [HTTPHeaders](./src/HTTPHeaders.cpp#L73)
 
-Operator = de copiere [HTTPHeaders](./include/HTTPHeaders.h#L88)
+Operator = de copiere [HTTPHeaders](./src/HTTPHeaders.cpp#L81)
 
-Operator = de mutare [HTTPHeaders](./include/HTTPHeaders.h#L104)
+Operator = de mutare [HTTPHeaders](./src/HTTPHeaders.cpp#L97)
 
-Destructor [HTTPHeaders](./include/HTTPHeaders.h#L117)
+Destructor [HTTPHeaders](./src/HTTPHeaders.cpp#L110)
 
 </details>
 
@@ -73,13 +73,13 @@ Destructor [HTTPHeaders](./include/HTTPHeaders.h#L117)
 
 <details>
 
-- [HTTPResponse](./include/CurlSession.h#L52)
+- [HTTPResponse](./src/HTTPResponse.cpp#L27)
 
-- [HTTPRequest](./include/HTTPRequest.h#L93)
+- [HTTPRequest](./src/HTTPRequest.cpp#L87)
 
-- [HTTPHeaders](./include/HTTPHeaders.h#L124)
+- [HTTPHeaders](./src/HTTPHeaders.cpp#L117)
 
-- [CurlSession](./include/CurlSession.h#L209)
+- [CurlSession](./src/CurlSession.cpp#L159)
 
 </details>
 
@@ -90,17 +90,17 @@ Destructor [HTTPHeaders](./include/HTTPHeaders.h#L117)
 
 ~40 const
 
-[HTTPHeaders::format_header](./include/HTTPHeaders.h#L21)
+[HTTPHeaders::format_header](./src/HTTPHeaders.cpp#L14)
 
-[HTTPResponse::sync_with_raw_body](./include/CurlSession.h#L26)
+[HTTPResponse::sync_with_raw_body](./src/HTTPResponse.cpp#L3)
 
-[HTTPRequest::parse_status_line](./include/HTTPRequest.h#L20)
+[HTTPRequest::parse_status_line](./src/HTTPRequest.cpp#L10)
 
-[HTTPRequest::parse_status_line](./include/HTTPRequest.h#L20)
+[HTTPRequest::parse_status_line](./src/HTTPRequest.cpp#L10)
 
-[HTTPRequest::parse_header](./include/HTTPRequest.h#L32)
+[HTTPRequest::parse_header](./src/HTTPRequest.cpp#L22)
 
-[CurlSession::getinfo_wrapper_last_url](./include/CurlSession.h#L61)
+[CurlSession::getinfo_wrapper_last_url](./src/CurlSession.cpp#L17)
 
 </details>
 
@@ -111,11 +111,11 @@ Destructor [HTTPHeaders](./include/HTTPHeaders.h#L117)
 
 Cam tot ce e aici e complex, dar uite:
 
-[CurlSession::request](./include/CurlSession.h#L80) <- Cea mai complexa
+[CurlSession::request](./src/CurlSession.cpp#L35) <- Cea mai complexa
 
-[HTTPRequest::perform](./include/HTTPRequest.h#L80)
+[HTTPRequest::perform](./src/HTTPRequest.cpp#L74)
 
-[HTTPHeaders::get_data](./include/HTTPHeaders.h#L27)
+[HTTPHeaders::get_data](./src/HTTPHeaders.cpp#L19)
 
 </details>
 
@@ -130,7 +130,7 @@ Cam tot ce e aici e complex, dar uite:
 ## Tema 2
 
 #### Cerințe
-- [ ] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
+- [X] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
 - [ ] moșteniri:
   - minim o clasă de bază și **3 clase derivate** din aceeași ierarhie; cele 3 derivate moștenesc aceeași clasă de bază
   - ierarhia trebuie să fie cu bază proprie, nu derivată dintr-o clasă predefinită

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <curl/curl.h>
-#include <Utilities.h>
+#include "include/Utilities.h"
 #include "include/HTTPRequest.h"
 #include "include/CurlSession.h"
 
