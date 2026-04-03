@@ -34,38 +34,38 @@ O cerință nu se consideră îndeplinită dacă este realizată doar prin cod g
 </sumarry>
 <details>
 
-[CurlSession](./include/CurlSession.h#L50)
+[CurlSession](./include/CurlSession.h#L57)
 
-[HTTPHeaders](./include/HTTPHeaders.h#L9)
+[HTTPHeaders](./include/HTTPHeaders.h#L10)
 
-[HTTPRequest](./include/HTTPRequest.h#L14) - has { [HTTPHeaders](./include/HTTPHeaders.h#L9) }, 
+[HTTPRequest](./include/HTTPRequest.h#L14) - has { [HTTPHeaders](./include/HTTPHeaders.h#L10) }, 
 
-[HTTPResponse](./include/CurlSession.h#L23) - has { [HTTPHeaders](./include/HTTPHeaders.h#L9) }
+[HTTPResponse](./include/CurlSession.h#L16) - has { [HTTPHeaders](./include/HTTPHeaders.h#L10) }
 </details>
 
 - [X] constructori de inițializare cu parametri pentru fiecare clasă
 
 [HTTPRequest](./include/HTTPRequest.h#L44)
 
-[HTTPResponse](./include/CurlSession.h#L40)
+[HTTPResponse](./include/CurlSession.h#L33)
 
 [HTTPHeaders](./include/HTTPHeaders.h#L64)
 
-[CurlSession](./include/CurlSession.h#L191)
+[CurlSession](./include/CurlSession.h#L185)
 
 
 - [X] pentru o aceeași (singură) clasă: constructor de copiere, `operator=` de copiere, destructor
 <details>
 
-Constructor de copiere [HTTPHeaders](./include/HTTPHeaders.h#L69)
+Constructor de copiere [HTTPHeaders](./include/HTTPHeaders.h#L74)
 
-Constructor de mutare [HTTPHeaders](./include/HTTPHeaders.h#L75)
+Constructor de mutare [HTTPHeaders](./include/HTTPHeaders.h#L80)
 
-Operator = de copiere [HTTPHeaders](./include/HTTPHeaders.h#L83)
+Operator = de copiere [HTTPHeaders](./include/HTTPHeaders.h#L88)
 
-Operator = de mutare [HTTPHeaders](./include/HTTPHeaders.h#L99)
+Operator = de mutare [HTTPHeaders](./include/HTTPHeaders.h#L104)
 
-Destructor [HTTPHeaders](./include/HTTPHeaders.h#L112)
+Destructor [HTTPHeaders](./include/HTTPHeaders.h#L117)
 
 </details>
 
@@ -73,13 +73,13 @@ Destructor [HTTPHeaders](./include/HTTPHeaders.h#L112)
 
 <details>
 
-- [HTTPResponse](./include/CurlSession.h#L50)
+- [HTTPResponse](./include/CurlSession.h#L52)
 
-- [HTTPRequest](./include/HTTPRequest.h#L91)
+- [HTTPRequest](./include/HTTPRequest.h#L93)
 
 - [HTTPHeaders](./include/HTTPHeaders.h#L124)
 
-- [CurlSession](./include/CurlSession.h#L201)
+- [CurlSession](./include/CurlSession.h#L209)
 
 </details>
 
@@ -90,17 +90,17 @@ Destructor [HTTPHeaders](./include/HTTPHeaders.h#L112)
 
 ~40 const
 
-[HTTPHeaders::format_header](./include/HTTPHeaders.h#L16)
+[HTTPHeaders::format_header](./include/HTTPHeaders.h#L21)
 
-[HTTPResponse::sync_with_raw_body](./include/CurlSession.h#L33)
+[HTTPResponse::sync_with_raw_body](./include/CurlSession.h#L26)
 
-[HTTPRequest::normalize](./include/HTTPRequest.h#L16)
+[HTTPRequest::parse_status_line](./include/HTTPRequest.h#L20)
 
 [HTTPRequest::parse_status_line](./include/HTTPRequest.h#L20)
 
 [HTTPRequest::parse_header](./include/HTTPRequest.h#L32)
 
-[CurlSession::getinfo_wrapper_last_url](./include/CurlSession.h#L58)
+[CurlSession::getinfo_wrapper_last_url](./include/CurlSession.h#L61)
 
 </details>
 
@@ -111,9 +111,9 @@ Destructor [HTTPHeaders](./include/HTTPHeaders.h#L112)
 
 Cam tot ce e aici e complex, dar uite:
 
-[CurlSession::request](./include/CurlSession.h#L88) <- Cea mai complexa
+[CurlSession::request](./include/CurlSession.h#L80) <- Cea mai complexa
 
-[HTTPRequest::perform](./include/HTTPRequest.h#L78)
+[HTTPRequest::perform](./include/HTTPRequest.h#L80)
 
 [HTTPHeaders::get_data](./include/HTTPHeaders.h#L27)
 
@@ -125,7 +125,7 @@ Cam tot ce e aici e complex, dar uite:
 - [X] minim 52-60% din codul propriu să fie C++, `.gitattributes` configurat corect
 - [X] tag de `git`: de exemplu `v0.1`
 - [X] serviciu de integrare continuă (CI) cu **toate bifele**; exemplu: GitHub Actions
-- [ ] code review #1 2 proiecte
+- [X] code review #1 2 proiecte
 
 ## Tema 2
 
