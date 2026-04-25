@@ -7,6 +7,7 @@
 #include "include/HTTPRequest.h"
 #include "include/CurlSession.h"
 #include "include/TemplatedRequest.h"
+#include "include/strategies/DummyStrategy.h"
 
 int main(void)
 {
@@ -14,9 +15,8 @@ int main(void)
   std::string sablon = readEverything(std::cin);
 
   TemplatedRequest treq(sablon);
-  HTTPRequest request = treq.compileRequest("PULA_MEA_IN_PIZDA_MATII");
-  HTTPResponse response = request.perform().value();
-  std::cout << response.get_body().substr(0, 1000);
+  DummyStrategy strategy(treq);
+  strategy.run();
 
   // Se citeste de la tastatura un HTTP request-uri valid, care apoi se executa
   // De ce ai face asta? Pentru ca inainte de a executa request-ul sa il pot modifica si sa pot injecta

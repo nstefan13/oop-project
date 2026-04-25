@@ -148,15 +148,58 @@ Cam tot ce e aici e complex, dar uite:
     - clasele de excepții trebuie să trateze categorii de erori distincte (exemplu de erori echivalente: citire fișiere cu diverse extensii)
   - [ ] utilizare cu sens: de exemplu, `throw` în constructor (sau funcție care întoarce un obiect), `try`/`catch` în `main`
   - această ierarhie va fi complet independentă de ierarhia cu funcții virtuale
-- [ ] funcții și atribute `static`
-- [ ] STL
-- [ ] cât mai multe `const`
-- [ ] funcții *de nivel înalt*, de eliminat cât mai mulți getters/setters/funcții low-level
-- [ ] minim 75-78% din codul propriu să fie C++
+
+- [X] funcții și atribute `static`
+
+<details>
+
+Funcții membre `static`:
+
+[HTTPHeaders::normalize](./include/HTTPHeaders.h#L16) implementat [aici](./src/HTTPHeaders.cpp#L10)
+
+[HTTPHeaders::format_header](./include/HTTPHeaders.h#L17) implementat [aici](./src/HTTPHeaders.cpp#L14)
+
+Variabile locale `static`:
+
+[HTTPRequest::parse_status_line - static std::regex pattern](./src/HTTPRequest.cpp#L12)
+
+[HTTPHeaders::operator[] - static const std::string empty_string](./src/HTTPHeaders.cpp#L47) - necesar că vreau să returnez o referință
+
+</details>
+
+- [X] STL
+<details>
+<summary>Referințe STL</summary>
+
+[HTTPHeaders::headers folosind std::unordered_map](./include/HTTPHeaders.h#L11)
+
+[HTTPResponse::raw_body folosind std::vector](./include/HTTPResponse.h#L14)
+
+[CurlSession::request / HTTPRequest::perform folosind std::expected](./include/CurlSession.h#L25)
+
+[HTTPRequest::parse_status_line și parse_header folosind std::regex și std::smatch](./src/HTTPRequest.cpp#L10)
+
+</details>
+- [X] cât mai multe `const` (deja rezolvat în Milestone 1)
+- [X] funcții *de nivel înalt*, de eliminat cât mai mulți getters/setters/funcții low-level
+<details>
+<summary>Referințe funcții de nivel înalt</summary>
+
+[HTTPRequest::HTTPRequest(std::istream&)](./src/HTTPRequest.cpp#L35) - parsează și construiește un request complet din fluxul de intrare
+
+[HTTPRequest::perform](./src/HTTPRequest.cpp#L74) - executa un HTTPRequest folosind CURL
+
+[CurlSession::request](./src/CurlSession.cpp#L35) - orchestrează request-ul complet către libcurl și construiește răspunsul
+
+</details>
+- [X] minim 75-78% din codul propriu să fie C++
+
 - [ ] la sfârșit: commit separat cu adăugarea unei noi clase derivate fără a modifica restul codului, **pe lângă cele 3 derivate deja adăugate** din aceeași ierarhie
   - noua derivată nu poate fi una existentă care a fost ștearsă și adăugată din nou
   - noua derivată va fi integrată în codul existent (adică va fi folosită, nu adăugată doar ca să fie)
+
 - [ ] tag de `git` pe commit cu **toate bifele**: de exemplu `v0.2`
+
 - [ ] code review #2 2 proiecte
 
 ## Tema 3
