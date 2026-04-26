@@ -53,13 +53,9 @@ HTTPRequest::HTTPRequest(std::istream& request_file_stream) {
   }
 
   // Store the remaining characters into this->body
-  if (this->headers["Content-Length"].size()) {
-    size_t content_length = std::stoull(this->headers["Content-Length"]);
-    this->body.assign(std::istreambuf_iterator<char>(request_file_stream), std::istreambuf_iterator<char>());
-
-    if (this->body.size() != static_cast<size_t>(content_length)) {
-      throw std::runtime_error(std::format("HTTPRequest: Body size mismatch. Header: {}, Actual: {}", content_length, this->body.size()));
-    } 
+  this->body.assign(std::istreambuf_iterator<char>(request_file_stream), std::istreambuf_iterator<char>());
+  if (this->body.size() > 0) {
+    this->headers.insert("Content-Length", std::to_string(this->body.size()));
   }
 }
 

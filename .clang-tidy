@@ -1,7 +1,5 @@
-# Generated from CLion Inspection settings
----
-Checks: '-*,
-bugprone-argument-comment,
+# Generated from CLion Inspection settings --- Checks: '-*,
+ bugprone-argument-comment,
 bugprone-assert-side-effect,
 bugprone-bad-signal-to-kill-thread,
 bugprone-branch-clone,
@@ -84,7 +82,6 @@ modernize-deprecated-ios-base-aliases,
 modernize-loop-convert,
 modernize-make-shared,
 modernize-make-unique,
-modernize-pass-by-value,
 modernize-raw-string-literal,
 modernize-redundant-void-arg,
 modernize-replace-auto-ptr,

@@ -1,33 +1,36 @@
 #pragma once
 
+#include "TemplatedRequest.h"
+#include <format>
 #include <iostream>
 #include <string>
-#include <format>
-#include "TemplatedRequest.h"
+
+#include <vector>
+#include "StrategyResult.h"
 
 class Strategy {
 protected:
   TemplatedRequest requestBlueprint;
 
 public:
-  Strategy(const TemplatedRequest& _requestBlueprint) : requestBlueprint{_requestBlueprint} {}
+  explicit Strategy(const TemplatedRequest &_requestBlueprint)
+      : requestBlueprint{_requestBlueprint} {}
   Strategy() = delete;
+  // OBLIGATORIU
   virtual ~Strategy() = default;
 
-  virtual const std::string& getName() const = 0;
-  virtual const std::string& getDescription() const = 0;
-  virtual void run() = 0;
+  [[nodiscard]] virtual const std::string &getName() const = 0;
+  [[nodiscard]] virtual const std::string &getDescription() const = 0;
+  virtual std::vector<StrategyResult> run() = 0;
 
-  virtual Strategy* clone() const = 0;
+  [[nodiscard]] virtual Strategy *clone() const = 0;
 
-  virtual void afisare(std::ostream& os) const {
-    os << std::format("Strategy {{\n\t name={}\n\t description={}\n}}", this->getName(), this->getDescription());
+  virtual void afisare(std::ostream &os) const {
+    os << std::format("Strategy {{\n\t name={}\n\t description={}\n}}",
+                      this->getName(), this->getDescription());
   }
-  friend std::ostream& operator<<(std::ostream& os, const Strategy& strategy) {
+  friend std::ostream &operator<<(std::ostream &os, const Strategy &strategy) {
     strategy.afisare(os);
     return os;
   }
-
-  // OBLIGATORIU
-  virtual Strategy::~Strategy() = default;
 };

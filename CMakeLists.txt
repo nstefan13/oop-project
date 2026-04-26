@@ -64,6 +64,15 @@ if(NOT inja_POPULATED)
     FetchContent_Populate(inja)
 endif()
 
+FetchContent_Declare(
+    rapidfuzz
+    GIT_REPOSITORY https://github.com/rapidfuzz/rapidfuzz-cpp.git
+    GIT_TAG        v3.3.3
+    GIT_SHALLOW    TRUE
+    GIT_PROGRESS   TRUE
+)
+FetchContent_MakeAvailable(rapidfuzz)
+
 ###############################################################################
 
 # external dependencies with find_package
@@ -104,6 +113,7 @@ target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE
 )
 target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE CURL::libcurl)
 target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE rapidfuzz)
 target_include_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${inja_SOURCE_DIR}/include)
 # target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE ${<SomeLib>_SOURCE_DIR}/include)
 # target_link_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)

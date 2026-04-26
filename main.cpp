@@ -1,35 +1,36 @@
-#include <iostream>
-#include <string>
-#include <curl/curl.h>
-#include <nlohmann/json.hpp>
-#include <inja/inja.hpp>
-#include "include/Utilities.h"
-#include "include/HTTPRequest.h"
+#include "WhereEscapeStrategy.h"
 #include "include/CurlSession.h"
+#include "include/HTTPRequest.h"
 #include "include/TemplatedRequest.h"
+#include "include/Utilities.h"
 #include "include/strategies/DummyStrategy.h"
+#include <curl/curl.h>
+#include <inja/inja.hpp>
+#include <iostream>
+#include <nlohmann/json.hpp>
+#include <string>
 
-int main(void)
-{
+int main(void) {
   std::cout << "\nProcessing request from std::cin\n";
   std::string sablon = readEverything(std::cin);
 
   TemplatedRequest treq(sablon);
-  DummyStrategy strategy(treq);
+  WhereEscapeStrategy strategy(treq);
   strategy.run();
 
   // Se citeste de la tastatura un HTTP request-uri valid, care apoi se executa
-  // De ce ai face asta? Pentru ca inainte de a executa request-ul sa il pot modifica si sa pot injecta
-  // payload-uri care ar putea duce la un data leak. Cum oricum trebuie sa construiesc un request,
-  // mai degraba las utilizatorul sa-mi dea unul care merge decat sa fac-l fac de la 0.
+  // De ce ai face asta? Pentru ca inainte de a executa request-ul sa il pot
+  // modifica si sa pot injecta payload-uri care ar putea duce la un data leak.
+  // Cum oricum trebuie sa construiesc un request, mai degraba las utilizatorul
+  // sa-mi dea unul care merge decat sa fac-l fac de la 0.
 
   // try {
   //   std::cout << "Simple request to example.com:\n";
   //   auto session = CurlSession();
-  //   auto response = session.request("GET", "https://example.com", HTTPHeaders(), "").value();
-  //   std::cout << response << '\n';
-  //   std::cout << response.get_body() << '\n';
-  
+  //   auto response = session.request("GET", "https://example.com",
+  //   HTTPHeaders(), "").value(); std::cout << response << '\n'; std::cout <<
+  //   response.get_body() << '\n';
+
   //   std::cout << "\nProcessing request from std::cin\n";
   //   auto request = HTTPRequest(std::cin);
   //   auto result = request.perform();
