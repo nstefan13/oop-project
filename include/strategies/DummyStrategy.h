@@ -4,7 +4,7 @@
 
 class DummyStrategy : public Strategy {
 public:
-  DummyStrategy(const TemplatedRequest& blueprint) : Strategy(blueprint) {}
+  explicit DummyStrategy(const TemplatedRequest& blueprint) : Strategy(blueprint) {}
   Strategy* clone() const override { return new DummyStrategy(*this); }
 
   const std::string& getName() const override {

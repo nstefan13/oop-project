@@ -16,10 +16,10 @@ class ResponseDiffEngine {
   Pipeline<HTTPResponse> responsePipeline;
 
   void configurePipelines() {
-    stringPipeline.addStep([](std::string body) {
+    stringPipeline.addStep([](const std::string& body) {
       return trim(body);
     });
-    stringPipeline.addStep([this](std::string body) {
+    stringPipeline.addStep([this](const std::string& body) {
       return removeDynamicContent(this->baselineResponse.get_body(), body, 40);
     });
 
