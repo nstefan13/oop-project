@@ -66,12 +66,12 @@ public:
             // If there's a significant difference between the FALSE and TRUE evaluations
             if (statusCodeDiffers || similarity < Constants::AnomalySimilarityThreshold) {
               StrategyResultBuilder builder;
-              builder.baselinePayload(falsePayload)
+              anomalies.push_back(builder.baselinePayload(falsePayload)
                      .baselineResponse(*falseResponse)
                      .attackPayload(truePayload)
                      .attackResponse(*trueResponse)
-                     .comment(std::format("Boolean Blind Anomaly! Status diff: {}, Similarity: {}%", statusCodeDiffers, similarity));
-              anomalies.push_back(builder.build());
+                     .comment(std::format("Boolean Blind Anomaly! Status diff: {}, Similarity: {}%", statusCodeDiffers, similarity))
+                     .build());
             }
           }
         }

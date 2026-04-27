@@ -1,4 +1,5 @@
 #include "HTTPRequest.h"
+#include "Exceptions.hpp"
 
 #include <stdexcept>
 #include <format>
@@ -8,26 +9,34 @@
 #include "Utilities.h"
 
 void HTTPRequest::parse_status_line(const std::string& status_line) {
-  std::smatch matches;
-  static std::regex pattern(R"(^([A-Z]+)\s+(\S+)\s+HTTP/(1|1\.1|2|3)$)");
+  std::smatch match;
+  static std::regex pattern(R"(^([A-Z]+)\s+(.*?)\s+HTTP/(1|1\.1|2|3)$)");
 
-  if (std::regex_match(status_line, matches, pattern)) {
-    this->method = matches[1];
-    this->path = matches[2];
-  } else {
-    throw std::runtime_error(std::format("HTTPRequest::parse_status_line invalid status line received: {}...", status_line.substr(0, std::min<size_t>(status_line.size(), 63UL))));
-  }
+  if (status_line.size() < 14)
+    throw InvalidStatusLineException(std::format(
+        "HTTPRequest::parse_status_line invalid status line received: {}...",
+        status_line.substr(0, std::min<size_t>(status_line.size(), 63UL))));
+
+  if (!std::regex_match(status_line, match, pattern))
+    throw InvalidStatusLineException(std::format(
+        "HTTPRequest::parse_status_line invalid status line received: {}...",
+        status_line.substr(0, std::min<size_t>(status_line.size(), 63UL))));
+  
+  this->method = match[1];
+  this->path = match[2];
 }
 
 void HTTPRequest::parse_header(const std::string& header_line) {
-  std::smatch matches;
-  static std::regex pattern(R"(([^:]+):\s*(.*))");
-
-  if (std::regex_match(header_line, matches, pattern)) {
-    this->headers.insert(matches[1], matches[2]);
-  } else {
-    throw std::runtime_error(std::format("HTTPRequest::parse_header invalid header line received: {}...", header_line.substr(0, std::min<size_t>(header_line.size(), 63UL))));
-  }
+  size_t pos = header_line.find(':');
+  if (pos == std::string::npos)
+    throw InvalidHeaderException(std::format(
+        "HTTPRequest::parse_header invalid header line received: {}...",
+        header_line.substr(0, std::min<size_t>(header_line.size(), 63UL))));
+  
+  std::string key = trim(header_line.substr(0, pos));
+  std::string value = trim(header_line.substr(pos + 1));
+  // Optional: trim whitespace from value
+  this->headers.insert(key, value);
 }
 
 

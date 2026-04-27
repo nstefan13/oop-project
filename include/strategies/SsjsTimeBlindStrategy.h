@@ -35,7 +35,7 @@ public:
     auto baselineResponse =
         this->requestBlueprint.compileRequest("dummyUsername").perform();
     if (!baselineResponse.has_value()) {
-      std::cerr << "Baseline request failed.\n";
+      std::cerr << "Baseline request failed with curl code: " << baselineResponse.error() << "\n";
       return anomalies;
     }
 
@@ -78,14 +78,14 @@ public:
       // Check if it took at least as long as the injected delay
       if (timeDiff >= expectedDelaySec - 0.1) {
         StrategyResultBuilder builder;
-        builder.baselinePayload("dummyUsername")
+        anomalies.push_back(builder.baselinePayload("dummyUsername")
             .baselineResponse(*baselineResponse)
             .attackPayload(payload)
             .attackResponse(*response)
             .comment(std::format("Time Blind Anomaly! Expected > {:.2f}s, took "
                                  "{:.2f}s longer than baseline.",
-                                 expectedDelaySec, timeDiff));
-        anomalies.push_back(builder.build());
+                                 expectedDelaySec, timeDiff))
+            .build());
       }
     }
 

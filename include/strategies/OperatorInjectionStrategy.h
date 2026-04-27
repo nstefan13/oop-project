@@ -56,14 +56,15 @@ public:
       if (statusCodeDiffers ||
           similarity < Constants::AnomalySimilarityThreshold) {
         StrategyResultBuilder builder;
-        builder.baselinePayload("dummyUsername")
-            .baselineResponse(*baselineResponse)
-            .attackPayload(payload)
-            .attackResponse(*response)
-            .comment(std::format(
-                "Operator Injection Anomaly! Status diff: {}, Similarity: {}%",
-                statusCodeDiffers, similarity));
-        anomalies.push_back(builder.build());
+        anomalies.push_back(
+            builder.baselinePayload("dummyUsername")
+                .baselineResponse(*baselineResponse)
+                .attackPayload(payload)
+                .attackResponse(*response)
+                .comment(std::format("Operator Injection Anomaly! Status diff: "
+                                     "{}, Similarity: {}%",
+                                     statusCodeDiffers, similarity))
+                .build());
       }
     }
 

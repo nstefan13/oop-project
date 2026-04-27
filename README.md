@@ -131,23 +131,34 @@ Cam tot ce e aici e complex, dar uite:
 
 #### Cerințe
 - [X] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
-- [ ] moșteniri:
+- [X] moșteniri:
   - minim o clasă de bază și **3 clase derivate** din aceeași ierarhie; cele 3 derivate moștenesc aceeași clasă de bază
   - ierarhia trebuie să fie cu bază proprie, nu derivată dintr-o clasă predefinită
-  - [ ] funcții virtuale (pure) apelate prin pointeri de bază din clasa care conține atributul de tip pointer de bază
+  - [X] funcții virtuale (pure) apelate prin pointeri de bază din clasa care conține atributul de tip pointer de bază
     - minim o funcție virtuală va fi **specifică temei** (i.e. nu simple citiri/afișări sau preluate din biblioteci i.e. draw/update/render)
     - constructori virtuali (clone): sunt necesari, dar nu se consideră funcții specifice temei
     - afișare virtuală, interfață non-virtuală
-  - [ ] apelarea constructorului din clasa de bază din constructori din derivate
-  - [ ] clasă cu atribut de tip pointer la o clasă de bază cu derivate; aici apelați funcțiile virtuale prin pointer de bază, eventual prin interfața non-virtuală din bază
-    - [ ] suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap
-    - [ ] `dynamic_cast`/`std::dynamic_pointer_cast` pentru downcast cu sens
-    - [ ] smart pointers (recomandat, opțional)
-- [ ] excepții
-  - [ ] ierarhie proprie cu baza `std::exception` sau derivată din `std::exception`; minim **3** clase pentru erori specifice distincte
-    - clasele de excepții trebuie să trateze categorii de erori distincte (exemplu de erori echivalente: citire fișiere cu diverse extensii)
-  - [ ] utilizare cu sens: de exemplu, `throw` în constructor (sau funcție care întoarce un obiect), `try`/`catch` în `main`
+  - [X] apelarea constructorului din clasa de bază din constructori din derivate
+  - [X] clasă cu atribut de tip pointer la o clasă de bază cu derivate; aici apelați funcțiile virtuale prin pointer de bază, eventual prin interfața non-virtuală din bază
+    - [X] suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap
+    - [X] `dynamic_cast`/`std::dynamic_pointer_cast` pentru downcast cu sens
+    - [X] smart pointers (recomandat, opțional)
+- [X] excepții
+  - [X] ierarhie proprie cu baza `std::exception` sau derivată din `std::exception`; minim **3** clase pentru erori specifice distincte
+    - clasele de excepții trebuie să trateze categorii de erori distincte (Network Client vs HTTP Status Line vs HTTP Headers)
+  - [X] utilizare cu sens: de exemplu, `throw` în constructor (sau funcție care întoarce un obiect), `try`/`catch` în `main`
   - această ierarhie va fi complet independentă de ierarhia cu funcții virtuale
+implementate in [Exceptions.hpp](./include/Exceptions.hpp) si folosite in [CurlSession](./src/CurlSession.cpp) si [HTTPRequest](./src/HTTPRequest.cpp)
+
+<details>
+<summary>Referințe Tema 2 (Moșteniri, Smart Pointers, etc.)</summary>
+
+[StrategyRegistry::strategies folosind std::unique_ptr](./include/StrategyRegistry.h#L18)
+
+[StrategyRegistry::runOnly folosind dynamic_cast pentru downcast cu sens](./include/StrategyRegistry.h#L58)
+
+[Clase derivate: SsjsTimeBlindStrategy, SsjsBooleanBlindStrategy, OperatorInjectionStrategy](./include/strategies/)
+</details>
 
 - [X] funcții și atribute `static`
 
@@ -194,9 +205,9 @@ Variabile locale `static`:
 </details>
 - [X] minim 75-78% din codul propriu să fie C++
 
-- [ ] la sfârșit: commit separat cu adăugarea unei noi clase derivate fără a modifica restul codului, **pe lângă cele 3 derivate deja adăugate** din aceeași ierarhie
+- [X] la sfârșit: commit separat cu adăugarea unei noi clase derivate fără a modifica restul codului, **pe lângă cele 3 derivate deja adăugate** din aceeași ierarhie
   - noua derivată nu poate fi una existentă care a fost ștearsă și adăugată din nou
-  - noua derivată va fi integrată în codul existent (adică va fi folosită, nu adăugată doar ca să fie)
+  - noua derivată va fi integrată în codul existent (adică va fi folosită, nu adăugată doar ca să fie) - commit 1fed66676c62e2e38f2869bf48134ceeffed5de8
 
 - [ ] tag de `git` pe commit cu **toate bifele**: de exemplu `v0.2`
 
@@ -205,10 +216,32 @@ Variabile locale `static`:
 ## Tema 3
 
 #### Cerințe
-- [ ] 2 șabloane de proiectare (design patterns)
-- [ ] o clasă șablon cu sens; minim **2 instanțieri**
-  - [ ] preferabil și o funcție șablon (template) cu sens; minim 2 instanțieri
-- [ ] minim 80-90% din codul propriu să fie C++
+- [X] 2 șabloane de proiectare (design patterns)
+<details>
+<summary>Referințe Design Patterns</summary>
+
+1. [Strategy Pattern: Base Strategy](./include/strategies/Strategy.h) și clasele derivate.
+2. [Builder Pattern: StrategyResultBuilder](./include/StrategyResult.h#L41)
+3. [Singleton Pattern: Strategy Registry](./include/StrategyRegistry.h#L8)
+</details>
+
+- [X] o clasă șablon cu sens; minim **2 instanțieri**
+<details>
+<summary>Referințe Clasă Șablon (Declarare și Utilizare)</summary>
+
+- Declarare: [Pipeline<T>](./include/Pipeline.h#L8)
+- Instanțiere 1: [Pipeline<std::string>](./include/ResponseDiffEngine.h#L14)
+- Instanțiere 2: [Pipeline<HTTPResponse>](./include/ResponseDiffEngine.h#L15)
+</details>
+
+  - [X] preferabil și o funcție șablon (template) cu sens; minim 2 instanțieri
+<details>
+<summary>Referințe Funcție Șablon</summary>
+
+1. [concat (Variadic Template)](./include/Utilities.h#L44)
+</details>
+
+- [X] minim 80-90% din codul propriu să fie C++
 <!-- - [ ] o specializare pe funcție/clasă șablon -->
 - [ ] tag de `git` pe commit cu **toate bifele**: de exemplu `v0.3` sau `v1.0`
 - [ ] code review #3 2 proiecte
