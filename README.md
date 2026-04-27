@@ -45,7 +45,7 @@ O cerință nu se consideră îndeplinită dacă este realizată doar prin cod g
 
 - [X] constructori de inițializare cu parametri pentru fiecare clasă
 
-[HTTPRequest](./src/HTTPRequest.cpp#L35)
+[HTTPRequest](./src/HTTPRequest.cpp#L44)
 
 [HTTPResponse](./src/HTTPResponse.cpp#L10)
 
@@ -75,11 +75,11 @@ Destructor [HTTPHeaders](./src/HTTPHeaders.cpp#L110)
 
 - [HTTPResponse](./src/HTTPResponse.cpp#L27)
 
-- [HTTPRequest](./src/HTTPRequest.cpp#L87)
+- [HTTPRequest](./src/HTTPRequest.cpp#L92)
 
 - [HTTPHeaders](./src/HTTPHeaders.cpp#L117)
 
-- [CurlSession](./src/CurlSession.cpp#L159)
+- [CurlSession](./src/CurlSession.cpp#L178)
 
 </details>
 
@@ -94,13 +94,11 @@ Destructor [HTTPHeaders](./src/HTTPHeaders.cpp#L110)
 
 [HTTPResponse::sync_with_raw_body](./src/HTTPResponse.cpp#L3)
 
-[HTTPRequest::parse_status_line](./src/HTTPRequest.cpp#L10)
+[HTTPRequest::parse_status_line](./src/HTTPRequest.cpp#L11)
 
-[HTTPRequest::parse_status_line](./src/HTTPRequest.cpp#L10)
+[HTTPRequest::parse_header](./src/HTTPRequest.cpp#L29)
 
-[HTTPRequest::parse_header](./src/HTTPRequest.cpp#L22)
-
-[CurlSession::getinfo_wrapper_last_url](./src/CurlSession.cpp#L17)
+[CurlSession::getinfo_wrapper_last_url](./src/CurlSession.cpp#L18)
 
 </details>
 
@@ -111,9 +109,9 @@ Destructor [HTTPHeaders](./src/HTTPHeaders.cpp#L110)
 
 Cam tot ce e aici e complex, dar uite:
 
-[CurlSession::request](./src/CurlSession.cpp#L35) <- Cea mai complexa
+[CurlSession::request](./src/CurlSession.cpp#L37) <- Cea mai complexa
 
-[HTTPRequest::perform](./src/HTTPRequest.cpp#L74)
+[HTTPRequest::perform](./src/HTTPRequest.cpp#L79)
 
 [HTTPHeaders::get_data](./src/HTTPHeaders.cpp#L19)
 
@@ -153,9 +151,9 @@ implementate in [Exceptions.hpp](./include/Exceptions.hpp) si folosite in [CurlS
 <details>
 <summary>Referințe Tema 2 (Moșteniri, Smart Pointers, etc.)</summary>
 
-[StrategyRegistry::strategies folosind std::unique_ptr](./include/StrategyRegistry.h#L18)
+[StrategyRegistry::strategies folosind std::unique_ptr](./include/StrategyRegistry.h#L10)
 
-[StrategyRegistry::runOnly folosind dynamic_cast pentru downcast cu sens](./include/StrategyRegistry.h#L58)
+[StrategyRegistry::runOnly folosind dynamic_cast pentru downcast cu sens](./include/StrategyRegistry.h#L39)
 
 [Clase derivate: SsjsTimeBlindStrategy, SsjsBooleanBlindStrategy, OperatorInjectionStrategy](./include/strategies/)
 </details>
@@ -172,9 +170,9 @@ Funcții membre `static`:
 
 Variabile locale `static`:
 
-[HTTPRequest::parse_status_line - static std::regex pattern](./src/HTTPRequest.cpp#L12)
+[HTTPRequest::parse_status_line - static std::regex pattern](./src/HTTPRequest.cpp#L13)
 
-[HTTPHeaders::operator[] - static const std::string empty_string](./src/HTTPHeaders.cpp#L47) - necesar că vreau să returnez o referință
+[HTTPHeaders::operator[] - static const std::string empty_string](./src/HTTPHeaders.cpp#L46) - necesar că vreau să returnez o referință
 
 </details>
 
@@ -188,7 +186,7 @@ Variabile locale `static`:
 
 [CurlSession::request / HTTPRequest::perform folosind std::expected](./include/CurlSession.h#L25)
 
-[HTTPRequest::parse_status_line și parse_header folosind std::regex și std::smatch](./src/HTTPRequest.cpp#L10)
+[HTTPRequest::parse_status_line și parse_header folosind std::regex și std::smatch](./src/HTTPRequest.cpp#L11)
 
 </details>
 - [X] cât mai multe `const` (deja rezolvat în Milestone 1)
@@ -196,11 +194,11 @@ Variabile locale `static`:
 <details>
 <summary>Referințe funcții de nivel înalt</summary>
 
-[HTTPRequest::HTTPRequest(std::istream&)](./src/HTTPRequest.cpp#L35) - parsează și construiește un request complet din fluxul de intrare
+[HTTPRequest::HTTPRequest(std::istream&)](./src/HTTPRequest.cpp#L44) - parsează și construiește un request complet din fluxul de intrare
 
-[HTTPRequest::perform](./src/HTTPRequest.cpp#L74) - executa un HTTPRequest folosind CURL
+[HTTPRequest::perform](./src/HTTPRequest.cpp#L79) - executa un HTTPRequest folosind CURL
 
-[CurlSession::request](./src/CurlSession.cpp#L35) - orchestrează request-ul complet către libcurl și construiește răspunsul
+[CurlSession::request](./src/CurlSession.cpp#L37) - orchestrează request-ul complet către libcurl și construiește răspunsul
 
 </details>
 - [X] minim 75-78% din codul propriu să fie C++
@@ -209,7 +207,7 @@ Variabile locale `static`:
   - noua derivată nu poate fi una existentă care a fost ștearsă și adăugată din nou
   - noua derivată va fi integrată în codul existent (adică va fi folosită, nu adăugată doar ca să fie) - commit 1fed66676c62e2e38f2869bf48134ceeffed5de8
 
-- [ ] tag de `git` pe commit cu **toate bifele**: de exemplu `v0.2`
+- [X] tag de `git` pe commit cu **toate bifele**: de exemplu `v0.2`
 
 - [ ] code review #2 2 proiecte
 
@@ -221,7 +219,7 @@ Variabile locale `static`:
 <summary>Referințe Design Patterns</summary>
 
 1. [Strategy Pattern: Base Strategy](./include/strategies/Strategy.h) și clasele derivate.
-2. [Builder Pattern: StrategyResultBuilder](./include/StrategyResult.h#L41)
+2. [Builder Pattern: StrategyResultBuilder](./include/StrategyResult.h#L46)
 3. [Singleton Pattern: Strategy Registry](./include/StrategyRegistry.h#L8)
 </details>
 
@@ -229,21 +227,22 @@ Variabile locale `static`:
 <details>
 <summary>Referințe Clasă Șablon (Declarare și Utilizare)</summary>
 
-- Declarare: [Pipeline<T>](./include/Pipeline.h#L8)
-- Instanțiere 1: [Pipeline<std::string>](./include/ResponseDiffEngine.h#L14)
-- Instanțiere 2: [Pipeline<HTTPResponse>](./include/ResponseDiffEngine.h#L15)
+- Declarare: [Pipeline<T>](./include/Pipeline.h#L7)
+- Instanțiere 1: [Pipeline<std::string>](./include/ResponseDiffEngine.h#L15)
+- Instanțiere 2: [Pipeline<HTTPResponse>](./include/ResponseDiffEngine.h#L16)
 </details>
 
   - [X] preferabil și o funcție șablon (template) cu sens; minim 2 instanțieri
 <details>
 <summary>Referințe Funcție Șablon</summary>
 
-1. [concat (Variadic Template)](./include/Utilities.h#L44)
+1. [concat (Variadic Template)](./include/Utilities.h#L42)
+2. [StrategyRegistry::runOnly<T>](./include/StrategyRegistry.h#L39)
 </details>
 
 - [X] minim 80-90% din codul propriu să fie C++
 <!-- - [ ] o specializare pe funcție/clasă șablon -->
-- [ ] tag de `git` pe commit cu **toate bifele**: de exemplu `v0.3` sau `v1.0`
+- [X] tag de `git` pe commit cu **toate bifele**: de exemplu `v0.3` sau `v1.0`
 - [ ] code review #3 2 proiecte
 
 ## Instrucțiuni de compilare
