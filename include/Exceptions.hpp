@@ -7,7 +7,7 @@
 class ApplicationException : public std::exception {
   std::string message = "ApplicationException";
 
-protected:
+public:
   explicit ApplicationException(const std::string &customMessage)
       : message{customMessage} {}
 
