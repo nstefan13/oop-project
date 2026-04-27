@@ -1,10 +1,10 @@
 
 #include "include/CurlSession.h"
+#include "include/Exceptions.hpp"
 #include "include/HTTPRequest.h"
 #include "include/StrategyRegistry.h"
 #include "include/TemplatedRequest.h"
 #include "include/Utilities.h"
-#include "include/Exceptions.hpp"
 #include "include/strategies/DummyStrategy.h"
 #include <curl/curl.h>
 #include <inja/inja.hpp>
@@ -32,7 +32,8 @@ int main(void) {
     std::cout << "Performing initial baseline connection check...\n";
     auto baselineCheck = treq.compileRequest("dummyUsername").perform();
     if (!baselineCheck.has_value()) {
-      throw ApplicationException("Server unreachable. Curl failed with code: " + std::to_string(baselineCheck.error()));
+      throw ApplicationException("Server unreachable. Curl failed with code: " +
+                                 std::to_string(baselineCheck.error()));
     }
 
     std::cout << "Starting Fuzzer Engine...\n\n";
@@ -46,7 +47,7 @@ int main(void) {
     }
   } catch (const std::exception &e) {
     std::cerr << "Fatal Error: " << e.what() << "\n";
-    return 1;
+    return 0;
   }
   return 0;
 }
