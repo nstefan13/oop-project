@@ -3,6 +3,7 @@
 #include <expected>
 #include <iostream>
 #include <string>
+#include <vector>
 
 std::string ltrim(std::string s);
 
