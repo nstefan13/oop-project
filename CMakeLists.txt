@@ -114,7 +114,7 @@ target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE
 target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE CURL::libcurl)
 target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(${MAIN_EXECUTABLE_NAME} PRIVATE rapidfuzz)
-target_include_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${inja_SOURCE_DIR}/include)
+target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE ${inja_SOURCE_DIR}/include)
 if(APPLE AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_definitions(${MAIN_EXECUTABLE_NAME} PRIVATE _LIBCPP_HAS_C11_FEATURES)
 endif()
