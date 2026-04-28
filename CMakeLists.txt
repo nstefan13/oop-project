@@ -92,6 +92,15 @@ target_sources(${MAIN_EXECUTABLE_NAME}
         src/HTTPResponse.cpp
         src/Utilities.cpp
         src/CurlSession.cpp
+        src/Constants.cpp
+        src/StrategyRegistry.cpp
+        src/TemplatedRequest.cpp
+        src/ResponseDiffEngine.cpp
+        src/strategies/Strategy.cpp
+        src/strategies/DummyStrategy.cpp
+        src/strategies/OperatorInjectionStrategy.cpp
+        src/strategies/SsjsBooleanBlindStrategy.cpp
+        src/strategies/SsjsTimeBlindStrategy.cpp
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )

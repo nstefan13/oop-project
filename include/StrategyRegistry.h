@@ -12,36 +12,16 @@ private:
   static StrategyRegistry *instance;
 
 public:
-  static StrategyRegistry &getInstance() {
-    if (!instance) {
-      instance = new StrategyRegistry();
-    }
-    return *instance;
-  }
+  static StrategyRegistry &getInstance();
 
-  //
-  // REAL FUNCTIONS
-  //
-  void addStrategy(std::unique_ptr<Strategy> strategy) {
-    strategies.push_back(std::move(strategy));
-  }
+  void addStrategy(std::unique_ptr<Strategy> strategy);
 
-  std::vector<StrategyResult> runAll() {
-    std::vector<StrategyResult> allAnomalies;
-    for (const auto &strat : strategies) {
-      std::cout << "[*] Running strategy: " << strat->getName() << "\n";
-      auto results = strat->run();
-      allAnomalies.insert(allAnomalies.end(), results.begin(), results.end());
-    }
-    return allAnomalies;
-  }
+  std::vector<StrategyResult> runAll();
 
   template <typename SpecificStrategyType>
   std::vector<StrategyResult> runOnly() {
     std::vector<StrategyResult> specificAnomalies;
     for (const auto &strat : strategies) {
-      // Downcast cu sens: verificam daca pointerul de baza pointeaza catre
-      // derivata cautata
       if (auto specificStrat =
               dynamic_cast<SpecificStrategyType *>(strat.get())) {
         std::cout << "[*] Running SPECIFIC strategy: "
@@ -54,5 +34,3 @@ public:
     return specificAnomalies;
   }
 };
-
-StrategyRegistry *StrategyRegistry::instance = nullptr;
