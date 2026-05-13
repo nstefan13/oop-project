@@ -5,6 +5,7 @@ ext/** linguist-vendored
 CMakeLists.txt linguist-detectable=false
 *.cmake linguist-detectable=false
 cmake/** linguist-detectable=false
+test/** linguist-detectable=false
 
 # scripts/** linguist-detectable=false
 # *.sh linguist-detectable=false
